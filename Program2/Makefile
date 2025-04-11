@@ -1,7 +1,7 @@
 .PHONY: test run
 
 test:
-	pytest
+	pytest -s
 
 run:
 	./kth.py

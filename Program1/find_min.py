@@ -1,11 +1,17 @@
 #!/usr/bin//python3
 
-def find_minimum(array: list):
+# wrapper accepts an array as the sole param
+# assume that the array is a python list of integers which has been sorted, then "shifted"
+# shift can be any amount left or right or not at all
+# returns minimum value in the array
+def find_minimum(array: list) -> int:
     if not array:
-        return None
+        return -1
+
     return find_min_rec(array, 0, len(array) - 1)
 
-def find_min_rec(array: list, low: int, high: int):
+#recursively search for the minimum
+def find_min_rec(array: list, low: int, high: int) -> int:
     # single element or all of the list has been eliminated
     if low == high:
         return array[low]
@@ -14,7 +20,7 @@ def find_min_rec(array: list, low: int, high: int):
     if array[low] <= array[high]:
         return array[low]
 
-    mid = (low + high) // 2
+    mid : int = (low + high) // 2
 
     # find which half to search based on comparison with high element
     if array[mid] > array[high]:
@@ -45,7 +51,9 @@ def find_min_rec(array: list, low: int, high: int):
     This would still be O(log n) though because we're bisecting the list on each recursive call until there's only one item
 
 4. Could this be done using Linear Search?
-    It could. Something like:
+    It could.
+    However, in every situation, we'll have O(n) complexity because we have to touch every item in the list no matter what.
+    An example might be:
 
     def linear_min(array):
 
@@ -64,5 +72,4 @@ def find_min_rec(array: list, low: int, high: int):
         # once complete, return the result
         return array[i]
 
-    However, in every situation, we'll have O(n) complexity because we have to touch every item in the list no matter what.
 '''
