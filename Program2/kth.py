@@ -85,3 +85,18 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+'''
+1. What is the best-case scenario?
+    The best case scenario is when the partition algorithm returns an index value that is equivalent to (len(array) - client_provided_k)
+
+    This still requires the partition algorithm to place one element. Therefore, the nested while loops will will need to traverse the entire list n times to determine the place to put the pivot value. It does not matter what "k" is selected or what the pivot value is, nor how it relates to the other elements. We will still touch every element to check its value relative to the pivot.
+
+    However, upon returning from the partition function, there is just a comparison between the return index value of partition() and the index value of the kth larget value, when the array is sorted. If this comparison evaluates to true, we just return the value and are done with a best case complexity of O(n).
+
+2. What is the worst-case scenario?
+    The worst case scenario would be when a k-value is selected that requires the maximum number of partitions. This means that we are recursively narrowing down which portion of the list the kth largest is in until partition returns an index mathcing len(array) - k, requiring O(log n) time. However, there is still the additional O(n) complexity of the partition function at every recursive call, compounding the total complexity to O(n log n). One thing to note that for the O(n) complexity for partition(), should be on average half as large with each recursive call, because we are narrowing down the search space for the pivot value to be in the correct position.
+
+3. How does the Divide and Conquer aspect of quicksort contribute to it's overall time complexity of O(n log n)?
+    Because we divide the problem into 2 functions, one recursive and one iterative, the recursive has a complexity of O(log n), but then on each stack frame, we call a function with O(n) complexity, so we must factor this in, even though the size of n may change. Even if this n is smaller with each recursive call, this reduction in n's size is essentially a fractional coefficient which we'll choose to ignore for significantly large data sets. If the data set were 1 billion items large, the, on average, halfing of the n value when calling partition() will not matter so much, and can still be considered O(n).
+'''
