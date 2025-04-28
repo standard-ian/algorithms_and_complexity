@@ -10,7 +10,6 @@
 # implementation of function to find the k-th largest value in an unsorted list of integers
 # k is a quantifier from largest. i.e. in [1, 2, 3], 3 is the 1st largest, 2 is the 2nd largest, etc.
 # index of "k-th" largest is k from the end or index [len(array) - k]
-# duplicates, positives, invalid k should all be dealt
 #####################################################################
 #
 
@@ -74,6 +73,7 @@ def kth_rec(array : list, k_index : int, start : int, end : int) -> int:
     # determine to continue searching and partitioning in upper or lower half
     if (p > k_index ):
         return kth_rec(array, k_index, start, p - 1)
+
     return kth_rec(array, k_index, p + 1, end)
 
 def main():

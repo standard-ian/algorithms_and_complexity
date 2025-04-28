@@ -26,6 +26,17 @@ def merge_uniq(array1 : list, array2 : list) -> list:
     if (array1 == [] and array2 == []):
         return []
 
+    # catch simple base cases
+    if (len(array1) == 1 and len(array2) == 1):
+        if (array1 == array2):
+            return array1
+
+        elif (array1[0] < array2[0]):
+            return array1 + array2
+
+        else:
+            return array2 + array1
+
     # sorting and making each array unique
     array1 = merge_uniq_rec(array1)
     array2 = merge_uniq_rec(array2)
@@ -67,18 +78,20 @@ def merge_rm_dupl(left : list, right : list) -> list:
         # than the right list at right index,
         if (left[left_index] < right[right_index]):
 
-            # if temp array is empty or the current left item is not already present
+            # if temp array is empty or the current left item is not already present...
             if (temp == [] or left[left_index] != temp[-1]):
-                #then place it into temp
+                # then place it into temp
                 temp.append(left[left_index])
 
-            # always increment the left index
+            # always increment the left index in this if block
             left_index += 1
 
         # otherwise, place the current smallest element from right into temp if it is unique
         else:
             if (temp == [] or right[right_index] != temp[-1]):
                 temp.append(right[right_index])
+
+            # always increment the right index in this if block
             right_index += 1
 
     # if we traversed the entirety of one but not both of the lists
@@ -86,18 +99,20 @@ def merge_rm_dupl(left : list, right : list) -> list:
     while (left_index < left_len):
         if (temp == [] or left[left_index] != temp[-1]):
             temp.append(left[left_index])
+
         left_index += 1
 
     while (right_index < right_len):
         if (temp == [] or right[right_index] != temp[-1]):
             temp.append(right[right_index])
+
         right_index += 1
 
     # return the temp array
     return temp
 
 def main():
-    array1 = [3, 2, 1]
+    array1 = [2, 3, 1]
     array2 = [5, 6, 6, 7]
     print(merge_uniq(array1, array2))
 
