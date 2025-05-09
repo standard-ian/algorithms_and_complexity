@@ -1,6 +1,12 @@
 ### Repo for CS350 Homework 4
 
-Create a venv and install the requirements listed below to run pytest suite and benchmarking
+Create a venv and install the requirements listed below to run pytest suite and benchmarking.
+
+If running the pytest suite on Windows, comment out 3 naiive solution tests that will timout and kill test session.
+
+See notes in `test_min_sum.py` for more info.
+
+For basic tests, just run the file `min_sum.py`
 
 Windows:
 

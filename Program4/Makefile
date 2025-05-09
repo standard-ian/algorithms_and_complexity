@@ -1,7 +1,7 @@
 .PHONY: run test git
 
 EXEC=min_sum.py
-TEST=test_$(EXEC)
+TEST=test_min_sum.py
 MAKE=Makefile
 IGNORE=.gitignore
 

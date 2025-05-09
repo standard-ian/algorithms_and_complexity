@@ -19,6 +19,8 @@ def test_min_sum_memo_vs_tab_large_random_tringle(large_random_triangle):
 #####################################################################
 
 ##################### NAIIVE SOLUTION TESTS #########################
+#### 3 TESTS HERE WILL SUSPEND EXECUTION WHEN THEY TIME OUT #########
+##### DUE TO SIGNAL HANDLING ISSUE ON WINDOWS. COMMENT THEM OUT. ####
 
 # benchmarking tests
 # 5 sufficiently large sets - timeout if not calcualted in 10s
@@ -26,10 +28,14 @@ def test_min_sum_memo_vs_tab_large_random_tringle(large_random_triangle):
 def test_min_sum_naiive_large_regular(large_regular_triangle, benchmark):
     result : int = benchmark(min_sum_naiive, large_regular_triangle)
     assert (result == 190)
+# 1. comment out in Windows!
+# will timeout and kill test session.
 @pytest.mark.timeout(10)
 def test_min_sum_naiive_large_random_triangle(large_random_triangle, benchmark):
     result : int = benchmark(min_sum_naiive, large_random_triangle)
     assert (result == 755)
+# 2. comment out in Windows!
+# will timeout and kill test session.
 @pytest.mark.timeout(10)
 def test_min_sum_naiive_worst_case_triangle(worst_case_triangle, benchmark):
     result : int = benchmark(min_sum_naiive, worst_case_triangle)
@@ -38,6 +44,8 @@ def test_min_sum_naiive_worst_case_triangle(worst_case_triangle, benchmark):
 def test_min_sum_naiive_exponential_triangle(exponential_triangle, benchmark):
     result : int = benchmark(min_sum_naiive, exponential_triangle)
     assert (result > 200 and result < 204)
+# 3. comment out in Windows!
+# will timeout and kill test session.
 @pytest.mark.timeout(10)
 def test_min_sum_naiive_fibonacci_triangle(fibonacci_triangle, benchmark):
     result : int = benchmark(min_sum_naiive, fibonacci_triangle)

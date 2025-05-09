@@ -8,7 +8,8 @@ import random
 # CS350 Spring 2025
 # Homework 4
 #####################################################################
-# pytest fixures for benchmarking - complicated and sufficiently large triangle matrices to demonstrate efficiency of memoization
+# pytest fixures for benchmarking - complicated and sufficiently large triangle matrices
+# to demonstrate efficiency of memoization and tabulated solutions
 #####################################################################
 
 # set random seed for reproducibility
@@ -35,6 +36,7 @@ def large_regular_triangle() -> list:
     return large_regular_triangle
 
 # test case 2: large random triangle (25 rows)
+# random for every funciton scope used!
 '''
 63
 91 21
