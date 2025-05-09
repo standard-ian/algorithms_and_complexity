@@ -13,6 +13,7 @@ To use the pytest suite for this program, create a venv and then run:
    1. in that row
    2. in the rows above
    3. in the rows below
+
  At each recursive call, we'll bisect the matrix rows and enter a new frame w/ a smaller matrix (the rows above or below the midpoint)
  Alternatively, if the target is found to be in the row of the midpoint, or if the smaller matrix consists of only 1 row, a new recursive binary search function can be called.
  This function will operate similary, but on a single list, the desired row passes as a parameter from the initial function.
