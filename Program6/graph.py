@@ -41,6 +41,12 @@
 #   levels of connection it takes to reach a given number of people (speed of spread)
 #####################################################################
 def spread(adj_list : dict, to_visit : int, start : int) -> int:
+    if (start not in adj_list):
+        raise ValueError("Invalid start node.")
+
+    if (to_visit > len(adj_list) - 1):
+        raise ValueError("Invalid \'to_visit\' (k) value.")
+
     # set to track visited items
     # add an item when it has been visited
     visited = set()
@@ -160,4 +166,95 @@ def edges(adj_list: dict, start: int, end: int) -> int:
                 queue.append((neighbor, current_distance + 1))
 
     return current_distance
+
+# graph object
+class Graph:
+    def __init__(self, graph : list):
+        self.nodes : list = []
+        self.adj_list : list = graph
+        self.order : list = []
+        self.visited : set = set()
+
+        for _ in self.adj_list:
+            self.nodes.append(_)
+
+    # returns number of edges given a start and end point
+    def edges(self, start: int, end: int) -> int:
+        if (start == end):
+            return 0
+
+        if (start not in self.adj_list or end not in self.adj_list):
+            raise ValueError("Start or end item not present.")
+
+        visited = set()
+
+        queue = [(start, 0)]
+        visited.add(start)
+        current_node = None
+
+        while (queue and current_node != end):
+            current_node, current_distance = queue.pop(0)
+
+            for neighbor in self.adj_list[current_node]:
+
+                if (neighbor not in visited):
+                    visited.add(neighbor)
+                    queue.append((neighbor, current_distance + 1))
+
+        return current_distance
+
+    # depth first display using recursion
+    def depth_first_display(self, start : int):
+        self.__depth_first_display(start)
+        print(self.order)
+        self.visited.clear()
+    def __depth_first_display(self, current):
+        if ((current not in self.adj_list) or (current in self.visited)):
+            return
+        self.visited.add(current
+        self.order.append(current)
+
+        neighbor = 0
+        for item in self.adj_list:
+            #if (self.adj_list[current][neighbor] == 1 and (neighbor not in self.visited)):
+            for neighbor in self.adj_list[current]:
+                if (neighbor not in self.visited):
+                    self.__depth_first_display(neighbor)
+
+    # breadth_first display with colored levels
+    def __str__(self) -> str:
+        self.clr_dict : dict = {
+            0 : "\033[38;5;020m",
+            1 : "\033[38;5;196m",
+            2 : "\033[38;5;220m",
+            3 : "\033[38;5;118m",
+            4 : "\033[38;5;192m"
+        }
+        self.CLR : str = "\033[0;00m"
+
+        visited = set()
+        start : int = self.nodes[0]
+        string : str = ""
+        queue = [(start, 0)]
+        visited.add(start)
+        current_node = None
+
+        #print("|  Node  |  Level  |")
+        string += ("|  Node  |  Level  |\n" + ("#" * 20) + "\n")
+
+        while (queue):
+            current_node, current_distance = queue.pop(0)
+            node : str = self.clr_dict[current_distance % 5] + str(current_node) + self.CLR
+            level : str = str(current_distance)
+
+            # print("|{:<26}".format(node) + "|" + "{:>9}".format(level) + "|")
+            string += ("|{:<26}".format(node) + "|" + "{:>9}".format(level) + "|\n")
+
+            for neighbor in self.adj_list[current_node]:
+
+                if (neighbor not in visited):
+                    visited.add(neighbor)
+                    queue.append((neighbor, current_distance + 1))
+
+        return string
 
