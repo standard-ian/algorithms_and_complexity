@@ -18,7 +18,7 @@
 # returns:
 #   total number of isolated groups of "1"s.
 ####################################################################
-def islands(matrix : list):
+def islands(matrix : list) -> int:
     # check all initial constraints are met:
     # check there are 300 or less rows
     if (len(matrix) > 300):
@@ -54,7 +54,7 @@ def islands(matrix : list):
     #       3. a 0 is encountered
     # inline, so visited matrix, original matrix, rows, cols, still in scope
     ####################################################################
-    def depth_first(r, c):
+    def depth_first(r, c) -> None:
         # base case to stop when one of the above conditions is met
         if (r < 0 or r >= rows or c < 0 or c >= cols
             or visited[r][c]
