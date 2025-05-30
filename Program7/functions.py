@@ -24,13 +24,16 @@ def islands(matrix : list):
     if (len(matrix) > 300):
         raise ValueError("Matrix must be 300 \"rows\" or less")
     # check there are 300 or less columns
-        if (len(row) > 300):
-            raise ValueError("Matrix must be 300 \"columns\" or less")
-    # ensure matrix is valid for the finding islands of "1"s
+    if (len(matrix[0]) > 300):
+        raise ValueError("Matrix must be 300 \"columns\" or less")
+
     for row in matrix:
-        for col in row:
-            if (int(col) != 1 and int(col) != 0):
+        if (len(row) != len(matrix[0])):
+            raise ValueError("Uneven matrix rows")
+        for item in row:
+            if (item != 1 and item != 0):
                 raise ValueError("Matrix must consist of 1s and 0s only")
+
 
     # get length of rows and length of columns
     rows, cols = len(matrix), len(matrix[0])
@@ -41,11 +44,16 @@ def islands(matrix : list):
     # count for number of islands
     islands : int = 0
 
-    # inline recursive function to recurse in all directions from a given coordinate until:
-    #   1. out of bounds of matrix
-    #   2. visited item is encountered (memoization efficiency)
-    #   3. a 0 is encountered
+    ####################################################################
+    # inline recursive function
+    ####################################################################
+    #   travel recursively in all directions from a given coordinate,
+    #   marking visited items in the visited memo, do this until:
+    #       1. out of bounds of matrix
+    #       2. visited item is encountered (memoization efficiency)
+    #       3. a 0 is encountered
     # inline, so visited matrix, original matrix, rows, cols, still in scope
+    ####################################################################
     def depth_first(r, c):
         # base case to stop when one of the above conditions is met
         if (r < 0 or r >= rows or c < 0 or c >= cols
@@ -69,7 +77,9 @@ def islands(matrix : list):
     # walk the matrix calling the recursive spreading function on every new unvisited "land"
     # since all groups are tied to an item that has been marked visited...
     for row in range(rows):
+
         for col in range(cols):
+
             # ...if an item is previously visited and is a 1,
             # it belongs to a different island...
             if (matrix[row][col] == 1 and not visited[row][col]):

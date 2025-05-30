@@ -66,4 +66,10 @@ def test_islands_invalid():
                     ]
     with pytest.raises(ValueError, match="Matrix must consist of 1s and 0s only"):
         islands(matrix)
+    matrix : list = [[0, 1, 0],
+                     [1, 1]
+                    ]
+    with pytest.raises(ValueError, match="Uneven matrix rows"):
+        islands(matrix)
+
 
