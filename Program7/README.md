@@ -1,4 +1,6 @@
 ### Program 7
+Run `main.py` for interactive testing.
+Run pytest to test exception handling and 6 parametrized test cases.
 
 ##### How Does it Work?
 The function first checks to make sure the matrix contains all 1s and 0s and that is its an even m x n rectangle where m and n are less than or equal to 300.
@@ -21,7 +23,6 @@ Because the items are marked visited by the recursive function and updated in re
 
 ##### Does it utilize a known algorithm, and if so, which one?
 Algorithms used were recursive memoization of an identical visited matrix, as well as the concept of depth first search.
-
 The depth first approach uses a nested loop to walk through the matrix one item at a time. It calls a recursive function that just travels depth in terms of immidiate adjacency to the current item (up, down, left, or right) instead of "traveling" to the node mapped to the 1 in the current row, memoizing the visited areas as it does so.
 
 ##### Why choose this approach?
@@ -64,3 +65,33 @@ Therefore, it doesn't scale the complexity in polynomial time, it just basically
 Alternatively, the best case scenarion would be a matrix of all 0s, but it is still going to be O(m x n) overall. We'll touch all the items (m x n) in the main loop, but never encouter a 1 and thereofore never do any recursive work.
 
 An all "0" matrix would be marginally faster, but best and worse case all scale in O(m x n) time still.
+
+### Depth First or Breadth First?
+I have an algorithm to count "islands" of 1's in matrices of only 1s and 0s. It uses a recursive function that is called from a loop to touch every item in row major order.
+
+In the main loop, we check if an item is a 1 and if it has not yet been visited. If these 2 conditions are true, the recursive function is called on that "coordinate". It in turn either returns if the coordinate is any of the following:
+1. A 0
+2. Already visited (tracked in a "visited" memoization)
+3. Out of the matrix bounds
+...or it marks the item as visited, then calls itself on its 4 direct neighbors.
+
+every time the main loop finds a new item that is an unvisited "1", a counter is incremented. At the end, this is the number of "islands"
+
+This algorithm implements depth-first traversal (DFS).
+The defining characteristic is that the recursive function calls itself on the 4 neighbors before returning. When an unvisited "1" is encountered, the algorithm immediately explores that entire island by following one path as far as possible through recursive calls before backtracking to explore alternative paths.
+The traversal pattern follows this sequence:
+
+Locate unvisited "1" → invoke recursive function
+Recursive function marks current cell as visited
+Immediately calls itself on first neighbor (proceeding deeper)
+That call proceeds even deeper on its first unvisited neighbor
+This continues until reaching a boundary condition (0, visited, or out of bounds)
+Only then does backtracking occur to explore the next neighbor
+
+Breadth-first search (BFS) would employ a queue and explore all immediate neighbors before advancing to their neighbors. BFS implementation for this problem would typically follow this pattern:
+
+Locate unvisited "1" → add to queue
+While queue is not empty: dequeue a cell, mark as visited, enqueue all unvisited "1" neighbors
+
+The recursive approach naturally utilizes the call stack as the stack data structure that DFS employs, prioritizing depth exploration over breadth exploration.
+
